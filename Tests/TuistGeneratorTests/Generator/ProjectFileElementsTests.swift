@@ -611,7 +611,8 @@ final class ProjectFileElementsTests: TuistUnitTestCase {
 
         let sdk = try SDKNode(name: "ARKit.framework",
                               platform: .iOS,
-                              status: .required)
+                              status: .required,
+                              source: .system)
         let sdkDependency = GraphDependencyReference.sdk(sdk.path, sdk.status)
 
         // When

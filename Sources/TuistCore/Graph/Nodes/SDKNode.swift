@@ -4,11 +4,13 @@ import TuistSupport
 
 public class SDKNode: GraphNode {
     public let status: SDKStatus
+    public let source: SDKSource
     public let type: Type
 
     public init(name: String,
                 platform: Platform,
-                status: SDKStatus) throws {
+                status: SDKStatus,
+                source: SDKSource) throws {
         let sdk = AbsolutePath("/\(name)")
 
         // TODO: Validate using a linter
@@ -18,6 +20,7 @@ public class SDKNode: GraphNode {
         }
 
         self.status = status
+        self.source = source
         self.type = type
 
         let sdkRootPath = AbsolutePath(platform.xcodeSdkRootPath,

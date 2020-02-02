@@ -17,7 +17,7 @@ final class GraphToDotGraphMapperTests: XCTestCase {
         // Given
         let framework = FrameworkNode.test(path: AbsolutePath("/XcodeProj.framework"))
         let library = LibraryNode.test(path: AbsolutePath("/RxSwift.a"))
-        let sdk = try SDKNode(name: "CoreData.framework", platform: .iOS, status: .required)
+        let sdk = try SDKNode(name: "CoreData.framework", platform: .iOS, status: .required, source: .system)
 
         let core = TargetNode.test(target: Target.test(name: "Core"), dependencies: [
             framework, library, sdk,

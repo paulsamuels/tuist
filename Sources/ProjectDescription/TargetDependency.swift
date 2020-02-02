@@ -11,6 +11,12 @@ public enum SDKStatus: String {
     case optional
 }
 
+/// Dependency source used by `.sdk` target dependencies
+public enum SDKSource: String {
+    case developer
+    case system
+}
+
 /// Defines the target dependencies supported by Tuist
 public enum TargetDependency: Codable, Equatable {
     /// Dependency on another target within the same project
@@ -53,7 +59,7 @@ public enum TargetDependency: Codable, Equatable {
     ///   - name: Name of the system library or framework (including extension)
     ///            e.g. `ARKit.framework`, `libc++.tbd`
     ///   - status: The dependency status (optional dependencies are weakly linked)
-    case sdk(name: String, status: SDKStatus)
+    case sdk(name: String, status: SDKStatus, source: SDKSource = .system)
 
     /// Dependency on CocoaPods pods.
     ///
@@ -105,6 +111,8 @@ public enum TargetDependency: Codable, Equatable {
 
 extension SDKStatus: Codable {}
 
+extension SDKSource: Codable {}
+
 // MARK: - TargetDependency (Coding)
 
 extension TargetDependency {
@@ -122,6 +130,7 @@ extension TargetDependency {
         case versionRequirement = "version_requirement"
         case publicHeaders = "public_headers"
         case swiftModuleMap = "swift_module_map"
+        case source
         case status
         case package
     }
@@ -159,7 +168,8 @@ extension TargetDependency {
             self = .package(product: package)
         case "sdk":
             self = .sdk(name: try container.decode(String.self, forKey: .name),
-                        status: try container.decode(SDKStatus.self, forKey: .status))
+                        status: try container.decode(SDKStatus.self, forKey: .status),
+                        source: try container.decode(SDKSource.self, forKey: .source))
 
         case "cocoapods":
             self = .cocoapods(path: try container.decode(Path.self, forKey: .path))
@@ -188,9 +198,10 @@ extension TargetDependency {
             try container.encodeIfPresent(swiftModuleMap, forKey: .swiftModuleMap)
         case let .package(packageType):
             try container.encode(packageType, forKey: .package)
-        case let .sdk(name, status):
+        case let .sdk(name, status, source):
             try container.encode(name, forKey: .name)
             try container.encode(status, forKey: .status)
+            try container.encode(source, forKey: .source)
         case let .cocoapods(path):
             try container.encode(path, forKey: .path)
         case let .xcFramework(path):

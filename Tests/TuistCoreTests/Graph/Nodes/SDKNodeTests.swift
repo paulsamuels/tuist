@@ -14,11 +14,11 @@ final class SDKNodeTests: XCTestCase {
         ]
 
         // When / Then
-        XCTAssertNoThrow(try libraries.map { try SDKNode(name: $0, platform: .macOS, status: .required) })
+        XCTAssertNoThrow(try libraries.map { try SDKNode(name: $0, platform: .macOS, status: .required, source: .system) })
     }
 
     func test_sdk_usupportedTypes() throws {
-        XCTAssertThrowsSpecific(try SDKNode(name: "FooBar", platform: .tvOS, status: .required),
+        XCTAssertThrowsSpecific(try SDKNode(name: "FooBar", platform: .tvOS, status: .required, source: .system),
                                 SDKNode.Error.unsupported(sdk: "FooBar"))
     }
 
@@ -35,7 +35,7 @@ final class SDKNodeTests: XCTestCase {
         ]
 
         // When
-        let nodes = try libraries.map { try SDKNode(name: $0.name, platform: $0.platform, status: .required) }
+        let nodes = try libraries.map { try SDKNode(name: $0.name, platform: $0.platform, status: .required, source: .system) }
 
         // Then
         XCTAssertEqual(nodes.map(\.path), [
@@ -54,7 +54,7 @@ final class SDKNodeTests: XCTestCase {
         ]
 
         // When
-        let nodes = try libraries.map { try SDKNode(name: $0.name, platform: $0.platform, status: .required) }
+        let nodes = try libraries.map { try SDKNode(name: $0.name, platform: $0.platform, status: .required, source: .system) }
 
         // Then
         XCTAssertEqual(nodes.map(\.path), [
@@ -68,7 +68,8 @@ final class SDKNodeTests: XCTestCase {
         // Given
         let subject = try SDKNode(name: "CoreData.framework",
                                   platform: .iOS,
-                                  status: .required)
+                                  status: .required,
+                                  source: .system)
 
         // When
         let got = subject.name

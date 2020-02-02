@@ -197,8 +197,8 @@ public class GraphLoader: GraphLoading {
             return try loadXCFrameworkNode(path: frameworkPath, graphLoaderCache: graphLoaderCache)
 
         // System SDK
-        case let .sdk(name, status):
-            return try SDKNode(name: name, platform: platform, status: status)
+        case let .sdk(name, status, source):
+            return try SDKNode(name: name, platform: platform, status: status, source: source)
 
         // CocoaPods
         case let .cocoapods(podsPath):

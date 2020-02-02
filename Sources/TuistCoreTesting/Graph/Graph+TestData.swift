@@ -91,14 +91,14 @@ public extension Graph {
             let node = nodesCache[$0.target.name]!
             let platform = $0.target.platform
             node.dependencies = $0.dependencies.map { nodesCache[$0.name]! }
-            let sdkDependencies: [(name: String, status: SDKStatus)] = $0.target.dependencies.compactMap {
-                if case let .sdk(name: name, status: status) = $0 {
-                    return (name: name, status: status)
+            let sdkDependencies: [(name: String, status: SDKStatus, source: SDKSource)] = $0.target.dependencies.compactMap {
+                if case let .sdk(name: name, status: status, source: source) = $0 {
+                    return (name: name, status: status, source: source)
                 }
                 return nil
             }
             node.dependencies.append(contentsOf: sdkDependencies.compactMap {
-                try? SDKNode(name: $0.name, platform: platform, status: $0.status)
+                try? SDKNode(name: $0.name, platform: platform, status: $0.status, source: $0.source)
             })
             let packageDependencies: [String] = $0.target.dependencies.compactMap {
                 if case let .package(packageType) = $0 {

@@ -258,7 +258,7 @@ final class GraphTests: TuistUnitTestCase {
         // Given
         let staticFrameworkA = Target.test(name: "StaticFrameworkA",
                                            product: .staticFramework,
-                                           dependencies: [.sdk(name: "some.framework", status: .optional)])
+                                           dependencies: [.sdk(name: "some.framework", status: .optional, source: .system)])
         let staticFrameworkB = Target.test(name: "StaticFrameworkB",
                                            product: .staticFramework,
                                            dependencies: [])
@@ -287,7 +287,7 @@ final class GraphTests: TuistUnitTestCase {
         // Given
         let staticFramework = Target.test(name: "StaticFramework",
                                           product: .staticFramework,
-                                          dependencies: [.sdk(name: "some.framework", status: .optional)])
+                                          dependencies: [.sdk(name: "some.framework", status: .optional, source: .system)])
         let dynamicFramework = Target.test(name: "DynamicFramework",
                                            product: .framework,
                                            dependencies: [])
@@ -317,10 +317,10 @@ final class GraphTests: TuistUnitTestCase {
         // Given
         let staticFramework = Target.test(name: "StaticFramework",
                                           product: .staticFramework,
-                                          dependencies: [.sdk(name: "some.framework", status: .optional)])
+                                          dependencies: [.sdk(name: "some.framework", status: .optional, source: .system)])
         let app = Target.test(name: "App",
                               product: .app,
-                              dependencies: [.sdk(name: "some.framework", status: .optional)])
+                              dependencies: [.sdk(name: "some.framework", status: .optional, source: .system)])
 
         let projectA = Project.test(path: "/path/a")
 
@@ -341,8 +341,8 @@ final class GraphTests: TuistUnitTestCase {
         // Given
         let staticFramework = Target.test(name: "StaticFrameworkA",
                                           product: .staticFramework,
-                                          dependencies: [.sdk(name: "thingone.framework", status: .optional),
-                                                         .sdk(name: "thingtwo.framework", status: .required)])
+                                          dependencies: [.sdk(name: "thingone.framework", status: .optional, source: .system),
+                                                         .sdk(name: "thingtwo.framework", status: .required, source: .system)])
 
         let projectA = Project.test(path: "/path/a")
 
@@ -364,10 +364,10 @@ final class GraphTests: TuistUnitTestCase {
         // Given
         let staticFrameworkA = Target.test(name: "StaticFrameworkA",
                                            product: .staticFramework,
-                                           dependencies: [.sdk(name: "ThingOne.framework", status: .optional)])
+                                           dependencies: [.sdk(name: "ThingOne.framework", status: .optional, source: .system)])
         let staticFrameworkB = Target.test(name: "StaticFrameworkB",
                                            product: .staticFramework,
-                                           dependencies: [.sdk(name: "ThingTwo.framework", status: .optional)])
+                                           dependencies: [.sdk(name: "ThingTwo.framework", status: .optional, source: .system)])
 
         let projectA = Project.test(path: "/path/a")
 

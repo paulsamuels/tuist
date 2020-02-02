@@ -564,9 +564,8 @@ extension TuistCore.Dependency {
         case let .package(product):
             return .package(product: product)
 
-        case let .sdk(name, status):
-            return .sdk(name: name,
-                        status: .from(manifest: status))
+        case let .sdk(name, status, source):
+            return .sdk(name: name, status: .from(manifest: status), source: .from(manifest: source))
         case let .cocoapods(path):
             return .cocoapods(path: try generatorPaths.resolve(path: path))
         case let .xcFramework(path):
@@ -822,6 +821,17 @@ extension TuistCore.SDKStatus {
             return .required
         case .optional:
             return .optional
+        }
+    }
+}
+
+extension TuistCore.SDKSource {
+    static func from(manifest: ProjectDescription.SDKSource) -> TuistCore.SDKSource {
+        switch manifest {
+        case .developer:
+            return .developer
+        case .system:
+            return .system
         }
     }
 }
