@@ -2,7 +2,7 @@ import Basic
 import Foundation
 import RxSwift
 import TuistCore
-import TuistGalaxy
+import TuistCache
 
 public final class MockCacheStorage: CacheStoraging {
     var existsStub: ((String) -> Bool)?

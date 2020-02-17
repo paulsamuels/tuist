@@ -3,7 +3,7 @@ import Foundation
 import RxBlocking
 import RxSwift
 import TuistCore
-import TuistGalaxy
+import TuistCache
 import TuistGenerator
 import TuistLoader
 import TuistSupport

@@ -1,7 +1,7 @@
 import Basic
 import Foundation
 import TuistCore
-import TuistGalaxy
+import TuistCache
 
 public final class MockXCFrameworkBuilder: XCFrameworkBuilding {
     var buildProjectArgs: [(projectPath: AbsolutePath, target: Target)] = []

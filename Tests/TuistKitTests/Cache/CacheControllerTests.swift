@@ -4,7 +4,7 @@ import TuistSupport
 import TuistCore
 import TuistSupportTesting
 import TuistCoreTesting
-import TuistGalaxyTesting
+import TuistCacheTesting
 
 @testable import TuistKit
 
